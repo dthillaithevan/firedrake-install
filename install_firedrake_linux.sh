@@ -1,6 +1,8 @@
 #!/bin/bash
 
 ################################
+# NOTE THIS INSTALLATION SCRIPT STILL USES firedrake-install AND HAS NOT BEEN TESTED RECENTLY!
+
 # FIREDRAKE INSTALLATION SCRIPT FOR LINUX
 # Installs firedrake and other dependancies using pyenv. Outputs .bash_profile script which can be used to activate Firedrake
 ################################
