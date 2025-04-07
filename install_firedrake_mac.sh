@@ -1,6 +1,8 @@
 #!/bin/bash
 
 ################################
+# NOTE THIS IS NOT LONGER THE RECOMMENDED METHOD FOR INSTALLING Firedrake ON Mac. Use install_firedrake_pip_mac.sh for up to date installation
+
 # FIREDRAKE INSTALLATION SCRIPT FOR MAC
 # Installs firedrake and other dependancies using pyenv inside homebrew. Outputs .bash_profile script which can be used to activate Firedrake or anaconda environments.
 ################################
