@@ -9,8 +9,7 @@
 
 ################################################################################################
 # USAGE:
-# Usage
-# 1. Place installation script (e.g. `install_firedrake_pip_mac.sh`) in `$HOME`
+# 1. Place installation script (e.g. `install_firedrake_mac.sh`) in `$HOME`
 # 2. OPTIONAL - Modify/create `requirements.txt` with additional pip modules to be installed (e.g. `jax`)
 #    - By default the script will install the following modules:
 #      	- `gmsh`
@@ -82,6 +81,8 @@ export PETSC_PATH="$PYTHON_ENVS_PATH/PETSc"
 export current_date=$(date +'%d_%m_%Y')
 export ENV_NAME="firedrake_$current_date"
 export BASH_PROFILE_NAME=".bash_profile"
+export BASH_PROFILE_PATH="${PWD}/${BASH_PROFILE_NAME}"
+export CWD=$PWD
 
 #### Python version to be installed (MODFIY AT OWN RISK) ####
 export IPOPT_VERSION=3.12.11
@@ -107,6 +108,9 @@ setup_homebrew() {
         if [ "$UPDATE_BREW" = true ] ; then
             echo 'brew installed, updating installation'
 
+            # Spyder update is incredibly slow and I am impatient..
+            brew pin spyder
+
             brew update
             brew upgrade
             brew cleanup --prune=all
@@ -129,16 +133,16 @@ setup_bash_profile() {
     echo "Resetting bash_profile"
     echo '********************************************'
     
-    cp ~/${BASH_PROFILE_NAME} ~/${BASH_PROFILE_NAME}_back_up_${current_date}
-    truncate -s 0 ~/${BASH_PROFILE_NAME}
+    cp $BASH_PROFILE_PATH ${BASH_PROFILE_PATH}_back_up_${current_date}
+    truncate -s 0 $BASH_PROFILE_PATH
 
     # Add homebrew to bash_profile
     echo '\n********************************************'
     echo "Adding homebrew to bash profile"
     echo '********************************************'
 
-    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/${BASH_PROFILE_NAME}
-    source ~/${BASH_PROFILE_NAME}
+    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $BASH_PROFILE_PATH
+    source $BASH_PROFILE_PATH
 }
 
 initialise_pyenv(){
@@ -196,15 +200,15 @@ save_env_vars() {
 
 update_bash_profile() {
     # delete contents of ~/.bash_profile
-    truncate -s 0 ~/${BASH_PROFILE_NAME}
+    truncate -s 0 $BASH_PROFILE_PATH
 
     echo 'deactivate
     conda deactivate
 
     export OMP_NUM_THREADS=1
 
-    # export installation_path='$installation_path >> ~/.bash_profile
-    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.bash_profile
+    # export installation_path='$installation_path >> $BASH_PROFILE_PATH
+    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $BASH_PROFILE_PATH
 
 
     echo 'if [ $# -eq 0 ];
@@ -241,11 +245,11 @@ update_bash_profile() {
             if command -v pyenv 1>/dev/null 2>&1; then
              eval "$(pyenv init -)"
             fi
-    ' >> ~/.bash_profile
+    ' >> $BASH_PROFILE_PATH
 
     echo '
             source ${HOME}/pythonEnvironments/${1}/variables.txt
-        ' >> ~/.bash_profile
+        ' >> $BASH_PROFILE_PATH
 
     echo '
             export PYOP2_CC=$FIREDRAKE_PATH/src/petsc/default/bin/mpicc
@@ -267,7 +271,7 @@ update_bash_profile() {
 
         fi
 
-    fi' >> ~/.bash_profile
+    fi' >> $BASH_PROFILE_PATH
 }
 
 make_paths() {
@@ -403,7 +407,7 @@ install_petsc() {
             n|N )
                 echo "Using existing PETSc installation..."
 
-                echo -n "Do you want to upgrade PETSc? (y/n): "
+                echo -n "Do you want to upgrade PETSc? (y=upgrade, n=dont upgrade): "
 
                 case "$choice" in
                     y|Y )
@@ -515,10 +519,20 @@ install_ipopt() {
         echo ""
         # download ipopt installation files
 
-
-        if [ ! -d "$HOME_PATH/coinhsl" ]; then
-            echo "coinhsl directory is not present in ${HOME_PATH}. Ensure coinhsl is downloaded and added to ${HOME_PATH}.!!"
-            exit 0
+        init_homebrew
+        pyenv global $PY_version
+        
+        activate_firedrake
+        
+        if [ ! -d "$CWD/coinhsl" ]; then
+            if [ ! -f "$CWD/coinhsl.zip" ]; then
+                echo "coinhsl zip is not present in ${CWD}. Ensure coinhsl is downloaded and added to ${CWD}.!!"
+                exit 0
+            else
+                echo "coinhsl zip is present in ${CWD} but you need to unzip this prior to installation."
+                exit 0
+            fi
+            
         fi
 
         if [ ! -d "${IPOPT_PATH}" ]; then
@@ -555,11 +569,11 @@ install_ipopt() {
         fi
 
         # append paths to .bash_profile
-        echo 'export IPOPT_PATH="${FULL_IPOPT_PATH}/build"' >> ~/${BASH_PROFILE_NAME}
-        echo 'export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${FULL_IPOPT_PATH}/build/lib64/pkgconfig:${FULL_IPOPT_PATH}/build/lib/pkgconfig:${FULL_IPOPT_PATH}/share/pkgconfig:${FULL_IPOPT_PATH}/build/lib/pkgconfig"' >> ~/${BASH_PROFILE_NAME}
-        echo 'export PATH="$PATH:${FULL_IPOPT_PATH}/build"' >> ~/${BASH_PROFILE_NAME}
-        echo 'export LD_LIBRARY_PATH="${FULL_IPOPT_PATH}/build/lib"' >> ~/${BASH_PROFILE_NAME}
-        source ~/${BASH_PROFILE_NAME}
+        echo 'export IPOPT_PATH="${FULL_IPOPT_PATH}/build"' >> $BASH_PROFILE_PATH
+        echo 'export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${FULL_IPOPT_PATH}/build/lib64/pkgconfig:${FULL_IPOPT_PATH}/build/lib/pkgconfig:${FULL_IPOPT_PATH}/share/pkgconfig:${FULL_IPOPT_PATH}/build/lib/pkgconfig"' >> $BASH_PROFILE_PATH
+        echo 'export PATH="$PATH:${FULL_IPOPT_PATH}/build"' >> $BASH_PROFILE_PATH
+        echo 'export LD_LIBRARY_PATH="${FULL_IPOPT_PATH}/build/lib"' >> $BASH_PROFILE_PATH
+        source $BASH_PROFILE_PATH
 
         init_homebrew
         pyenv global $PY_version
@@ -609,13 +623,13 @@ _install_ipopt() {
     tar -xvf Ipopt-$IPOPT_VERSION.tgz
 
     # copy HSL libraries
-    cp -r $HOME_PATH/coinhsl $FULL_IPOPT_PATH/ThirdParty/HSL/coinhsl
+    cp -r $CWD/coinhsl $FULL_IPOPT_PATH/ThirdParty/HSL/coinhsl
 
     # append paths to .bash_profile
-    echo 'export IPOPTDIR="$FULL_IPOPT_PATH"' >> ~/${BASH_PROFILE_NAME}
-    echo 'export IPOPT_PATH="$FULL_IPOPT_PATH/build"' >> ~/${BASH_PROFILE_NAME}
+    echo 'export IPOPTDIR="$FULL_IPOPT_PATH"' >> $BASH_PROFILE_PATH
+    echo 'export IPOPT_PATH="$FULL_IPOPT_PATH/build"' >> $BASH_PROFILE_PATH
 
-    source ~/${BASH_PROFILE_NAME}
+    source $BASH_PROFILE_PATH
 
     # install ipopt
     mkdir $FULL_IPOPT_PATH/build
@@ -647,7 +661,6 @@ install_cyipopt() {
 
     python setup.py build
     python setup.py install
-
 }
 
 install_pyenv() {
@@ -657,13 +670,13 @@ install_pyenv() {
     brew install pyenv
 
     # Add pyenv init to shell
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/${BASH_PROFILE_NAME}
-    echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/${BASH_PROFILE_NAME}
-    echo 'eval "$(pyenv init --path)"' >> ~/${BASH_PROFILE_NAME}
-    echo 'eval "$(pyenv init -)"' >> ~/${BASH_PROFILE_NAME}
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $BASH_PROFILE_PATH
+    echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> $BASH_PROFILE_PATH
+    echo 'eval "$(pyenv init --path)"' >> $BASH_PROFILE_PATH
+    echo 'eval "$(pyenv init -)"' >> $BASH_PROFILE_PATH
 
     # Reload shell
-    source ~/${BASH_PROFILE_NAME}
+    source $BASH_PROFILE_PATH
 }
 
 activate_firedrake() {
@@ -781,6 +794,13 @@ activate_firedrake
 init_homebrew
 pyenv global $PY_version
 
+
+################################
+# Install Pip Modules
+################################
+activate_firedrake
+install_additional_pip_modules
+
 ################################
 # Install ipopt
 ################################
@@ -790,11 +810,6 @@ init_homebrew
 pyenv global $PY_version
 
 activate_firedrake
-
-################################
-# Install Pip Modules
-################################
-install_additional_pip_modules
 
 ################################
 # Install Spyder
