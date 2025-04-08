@@ -1,6 +1,9 @@
 # firedrake-install
 This repository contains a collection of Bash scripts designed to simplify the installation of Firedrake on macOS and Linux systems.
 
+**Last updated: 08/04/25**<br>
+**Created by: Dilaksan Thillaithevan & Ryan Murphy** 
+
 # Usage
 1. Place installation script (e.g. `install_firedrake_pip_mac.sh`) in `$HOME`
 2. OPTIONAL - Modify/create `requirements.txt` with additional pip modules to be installed (e.g. `jax`)
