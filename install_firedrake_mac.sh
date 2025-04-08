@@ -3,6 +3,8 @@
 ################################################################################################
 # FIREDRAKE INSTALLATION SCRIPT FOR MAC
 # Installs firedrake using pip and other dependancies using pyenv inside homebrew. Outputs .bash_profile script which can be used to activate Firedrake or anaconda environments.
+# Last updated: 08/04/25
+# Created by: Dilaksan Thillaithevan & Ryan Murphy
 ################################################################################################
 
 ################################################################################################
