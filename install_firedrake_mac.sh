@@ -68,6 +68,7 @@ export INSTALL_PIP_LIBRARIES=true
 #### ADDITIONAL PIP MODULES ####
 pip_libraries=(
     "vtk"
+    "immutables"
     "gmsh"
     "meshio"
     "h5py"
