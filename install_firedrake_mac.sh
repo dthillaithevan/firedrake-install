@@ -158,12 +158,12 @@ install_pyenv() {
 ### Prase command line argument
 while [[ $# -gt 0 ]]; do
   case $1 in
-    --environment_name)
+    --env_name)
       if [ -n "$2" ]; then
         ENV_NAME="$2"
         shift 2
       else
-        echo "Error: --environment_name requires a non-empty argument"
+        echo "Error: --env_name requires a non-empty argument"
         exit 1
       fi
       ;;
