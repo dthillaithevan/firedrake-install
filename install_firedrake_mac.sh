@@ -60,8 +60,8 @@ export INSTALL_PETSC=true
 export INSTALL_IPOPT=true
 export INSTALL_SPYDER=true
 export REMOVE_OLD_PYENV=false
-export INSTALL_PYENV_VERSION=false
-export UPDATE_BREW=false
+export INSTALL_PYENV_VERSION=true
+export UPDATE_BREW=true
 export XCODE_VERSION="15_4" # XCode version - Xcode should be in /Applications folder with the version as suffix e.g. "Xcode_15_4.app"
 export INSTALL_PIP_LIBRARIES=true
 
