@@ -5,6 +5,8 @@
 
 # FIREDRAKE INSTALLATION SCRIPT FOR LINUX
 # Installs firedrake and other dependancies using pyenv. Outputs .bash_profile script which can be used to activate Firedrake
+# Last updated: 07/02/25
+# Created by: Dilaksan Thillaithevan & Ryan Murphy
 ################################
 
 ################################
