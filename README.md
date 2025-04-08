@@ -21,7 +21,7 @@ This repository contains a collection of Bash scripts designed to simplify the i
 8. When the firedrake venv is active you should see the terminal line should start with "(venv)" where venv is the name of your virtual environment (e.g. firedrake_01_01_2025)
 9. To test firedrake has been installed correctly you can run `python -c 'import firedrake'` in the terminal, this should raise no errors
 
-# Files
+
 ## Mac
 `install_firedrake_mac.sh`
 - Default installation script for Mac
