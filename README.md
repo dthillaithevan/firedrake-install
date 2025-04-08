@@ -10,12 +10,13 @@ This repository contains a collection of Bash scripts designed to simplify the i
     	- `h5py`
     	- `matplotlib`
     	- `siphash24`
-3. Run `source install_firedrake_XXX.sh` in terminal - NOTE: you can also call `source install_firedrake_XXX.sh --env_name <your_chosen_env_name>` to specify a custom environment name or reinstall a previous installation.
+3. IPOPT - If installing IPOPT, place `coinhsl.zip' in $HOME and unzip
+4. Run `source install_firedrake_XXX.sh` in terminal - NOTE: you can also call `source install_firedrake_XXX.sh --env_name <your_chosen_env_name>` to specify a custom environment name or reinstall a previous installation.
 	- This will install firedrake and its dependancies and any additional libraries
 	- The firedrake environment will be created in `$HOME/pythonEnvironments/firedrake_DD_MM_YYYY`, this is where all the files will be placed
-4. Ensure installation completed with no error messages. Carefully scroll through the output to make sure there are no errors, the script will complete even if errors occur!
-5. A `.bash_profile` file should be added to your home directory
-6. To activate the virtual environment run `source .bash_profile firedrake_DD_MM_YYYY`
+5. Ensure installation completed with no error messages. Carefully scroll through the output to make sure there are no errors, the script will complete even if errors occur!
+6. A `.bash_profile` file should be added to your home directory
+7. To activate the virtual environment run `source .bash_profile firedrake_DD_MM_YYYY`
    - Note that the date will be fixed, so use the same date when activating on a future date!
    - If you used `--env_name` option then use the environment name that you specified
 8. When the firedrake venv is active you should see the terminal line should start with "(venv)" where venv is the name of your virtual environment (e.g. firedrake_01_01_2025)
