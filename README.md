@@ -14,18 +14,19 @@ This repository contains a collection of Bash scripts designed to simplify the i
     	- `h5py`
     	- `matplotlib`
     	- `siphash24`
-4. IPOPT - If installing IPOPT, unzip `coinhsl.zip' inside `firedrake-install` 
-5. Run `source install_firedrake_XXX.sh` in terminal - NOTE: you can also call `source install_firedrake_XXX.sh --env_name <your_chosen_env_name>` to specify a custom environment name or reinstall a previous installation.
+4. OPTIONAL - Set options inside the installation script (e.g. INSTALL_IPOPT etc.). It is recommended that you set `UPDATE_BREW=true`, `INSTALL_PYENV_VERSION=true`
+5. IPOPT - If installing IPOPT, unzip `coinhsl.zip' inside `firedrake-install` 
+6. Run `source install_firedrake_XXX.sh` in terminal - NOTE: you can also call `source install_firedrake_XXX.sh --env_name <your_chosen_env_name>` to specify a custom environment name or reinstall a previous installation.
 	- This will install firedrake and its dependancies and any additional libraries
 	- The firedrake environment will be created in `$HOME/pythonEnvironments/firedrake_DD_MM_YYYY`, this is where all the files will be placed
    - A `.bash_profile` will be created inside `firedrake-install`. This will be used to activate your environment
-6. Ensure installation completed with no error messages. Carefully scroll through the output to make sure there are no errors, the script will complete even if errors occur!
-7. A `.bash_profile` file should now be added to `firedrake-install`
-8. To activate the virtual environment run `cd firedrake-install` -> `source .bash_profile firedrake_DD_MM_YYYY` or `source firedrake-install/.bash_profile firedrake_DD_MM_YYYY`
+7. Ensure installation completed with no error messages. Carefully scroll through the output to make sure there are no errors, the script will complete even if errors occur!
+8. A `.bash_profile` file should now be added to `firedrake-install`
+9. To activate the virtual environment run `cd firedrake-install` -> `source .bash_profile firedrake_DD_MM_YYYY` or `source firedrake-install/.bash_profile firedrake_DD_MM_YYYY`
    - Note that the date will be fixed, so use the same date when activating on a future date!
    - If you used `--env_name` option then use the environment name that you specified
-9. When the firedrake venv is active you should see the terminal line should start with "(venv)" where venv is the name of your virtual environment (e.g. firedrake_01_01_2025)
-10. To test firedrake has been installed correctly you can run `python -c 'import firedrake'` in the terminal, this should raise no errors
+10. When the firedrake venv is active you should see the terminal line should start with "(venv)" where venv is the name of your virtual environment (e.g. firedrake_01_01_2025)
+11. To test firedrake has been installed correctly you can run `python -c 'import firedrake'` in the terminal, this should raise no errors
 
 
 ## Mac
