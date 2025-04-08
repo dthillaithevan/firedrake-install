@@ -67,6 +67,7 @@ export INSTALL_PIP_LIBRARIES=true
 
 #### ADDITIONAL PIP MODULES ####
 pip_libraries=(
+    "vtk"
     "gmsh"
     "meshio"
     "h5py"
@@ -476,6 +477,8 @@ _install_firedrake() {
     export PETSC_DIR="$PETSC_PATH/petsc"
 
     pip cache remove petsc4py
+    pip cache remove mpi4py
+    pip cache remove h5py
 
     # Install firedrake
     pip install --no-binary h5py "firedrake @ git+https://github.com/firedrakeproject/firedrake.git#[test]"
