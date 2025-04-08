@@ -22,7 +22,7 @@ This repository contains a collection of Bash scripts designed to simplify the i
 - NOTE that Firedrake can take over an hour to install!
   
 - Installation script usage:
-	1. Run `source install_firedrake_XXX.sh` in terminal (without the quotes) - NOTE: you can also call `source install_firedrake_XXX.sh --environment_name <your_chosen_env_name>` to specify a custom environment name.
+	1. Run `source install_firedrake_XXX.sh` in terminal (without the quotes) - NOTE: you can also call `source install_firedrake_XXX.sh --env_name <your_chosen_env_name>` to specify a custom environment name.
 		- This will install firedrake and its dependancies and any additional libraries
 		- The firedrake environment will be created in `$HOME/pythonEnvironments/firedrake_DD_MM_YYYY`, this is where all the files will be placed
 	2. Ensure installation completed with no error messages. Carefully scroll through the output to make sure there are no errors, the script will complete even if errors occur!
