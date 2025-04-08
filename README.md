@@ -7,7 +7,7 @@ This repository contains a collection of Bash scripts designed to simplify the i
 - Default installation script for Mac
 - Uses pip to install firedrake and dependencies using homebrew
 
-`install_firedrake_mac.sh`
+`OLD_install_firedrake_mac.sh`
 - Older version of installation script that uses firedrake-install
 - No longer recommended
 
