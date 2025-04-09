@@ -67,7 +67,6 @@ export INSTALL_PIP_LIBRARIES=true
 
 #### ADDITIONAL PIP MODULES ####
 pip_libraries=(
-    "vtk"
     "immutables"
     "gmsh"
     "meshio"
@@ -483,9 +482,13 @@ _install_firedrake() {
 
     # Install firedrake
     pip install --no-binary h5py "firedrake @ git+https://github.com/firedrakeproject/firedrake.git#[test]"
+    pip install vtk
+    pip install -U loopy
+    pip install -U pytools pymbolic
 
     firedrake-check
-
+    # Clean just to be sure
+    firedrake-clean
     echo '\n*****************************************************'
     echo "------- END OF FIREDRAKE INSTALLATION!! -------\n\n"
     echo "------- SCROLL UP AND CHECK THERE ARE NO ERROR MESSAGES (WARNINGS ARE 'USUALLY' FINE TO IGNORE) -------\n\n"
