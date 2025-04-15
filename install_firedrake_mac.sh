@@ -476,6 +476,9 @@ _install_firedrake() {
     export $(python3 firedrake-configure --show-env)
     export PETSC_DIR="$PETSC_PATH/petsc"
 
+    # Update pip & install setuptools + wheel
+    pip install --upgrade pip setuptools wheel
+
     pip cache remove petsc4py
     pip cache remove mpi4py
     pip cache remove h5py
